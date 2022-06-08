@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:themoviedb/Theme/app_button_style.dart';
+import 'package:themoviedb/widgets/main_screen/main_screen_widget.dart';
 
 class AuthWidget extends StatefulWidget {
   AuthWidget({Key? key}) : super(key: key);
@@ -76,8 +77,8 @@ class _FormWidget extends StatefulWidget {
 }
 
 class __FormWidgetState extends State<_FormWidget> {
-  final _loginTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final _loginTextController = TextEditingController(text: 'admin');
+  final _passwordTextController = TextEditingController(text: 'admin');
   String? errorText;
 
   void _auth() {
@@ -85,9 +86,9 @@ class __FormWidgetState extends State<_FormWidget> {
     final password = _passwordTextController.text;
     if (login == 'admin' && password == 'admin') {
       errorText = null;
-      print('open app');
+
+      Navigator.of(context).pushReplacementNamed('/main_screen');
     } else {
-      Navigator.of(context).pushNamed('/dd');
       errorText = 'Не верный логин или пароль';
     }
     setState(() {});
