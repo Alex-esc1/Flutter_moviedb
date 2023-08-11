@@ -30,7 +30,7 @@ class MovieListWidget extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 child: Row(
                   children: [
-                    Image(image: AssetImage(AppImages.moviePlacholder)),
+                    Image(image: AssetImage(AppImages.mortal)),
                     SizedBox(width: 15),
                     Expanded(
                       child: Column(
