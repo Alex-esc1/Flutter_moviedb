@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:themoviedb/resources/resources.dart';
 
 class Movie {
+  final int id;
   final String imageName;
   final String title;
   final String time;
   final String description;
 
   Movie({
+    required this.id,
     required this.imageName,
     required this.title,
     required this.time,
@@ -25,96 +27,112 @@ class MovieListWidget extends StatefulWidget {
 class _MovieListWidgetState extends State<MovieListWidget> {
   final _movies = [
     Movie(
+      id: 0,
       imageName: AppImages.mortal,
       title: 'Смертельная битва',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 1,
       imageName: AppImages.mortal,
       title: 'Прибытие',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 2,
       imageName: AppImages.mortal,
       title: 'Назад в будущее 1',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 3,
       imageName: AppImages.mortal,
       title: 'Назад в будущее 2',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 4,
       imageName: AppImages.mortal,
       title: 'Назад в будущее 3',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 5,
       imageName: AppImages.mortal,
       title: 'Первому игроку приготовится',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 6,
       imageName: AppImages.mortal,
       title: 'Пиксели',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 7,
       imageName: AppImages.mortal,
       title: 'Человек паук',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 8,
       imageName: AppImages.mortal,
       title: 'Лига справедливости',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 9,
       imageName: AppImages.mortal,
       title: 'Человек из стали',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 10,
       imageName: AppImages.mortal,
       title: 'Мстители',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 11,
       imageName: AppImages.mortal,
       title: 'Форд против феррари',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 12,
       imageName: AppImages.mortal,
       title: 'Джентельмены',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 13,
       imageName: AppImages.mortal,
       title: 'Тихие зори',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 14,
       imageName: AppImages.mortal,
       title: 'В бой идут одни старики',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 15,
       imageName: AppImages.mortal,
       title: 'Дюна',
       time: 'April  7, 2021',
@@ -130,7 +148,8 @@ class _MovieListWidgetState extends State<MovieListWidget> {
     final query = _searchController.text;
     if (query.isNotEmpty) {
       _filteredMovies = _movies.where((Movie movie) {
-        return movie.title.toLowerCase().contains(query.toLowerCase()); //toLowerCase() - чтобы не учитывать регистр, все перводим с маленькой буквы
+        return movie.title.toLowerCase().contains(query
+            .toLowerCase()); //toLowerCase() - чтобы не учитывать регистр, все перводим с маленькой буквы
       }).toList();
     } else {
       _filteredMovies = _movies;
@@ -140,10 +159,19 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 
   @override
   void initState() {
-    _filteredMovies = _movies; //чтобы при запуске отображался список фильмов не пустым
+    _filteredMovies =
+        _movies; //чтобы при запуске отображался список фильмов не пустым
     _searchController.addListener(_searchMovies);
 
     super.initState();
+  }
+
+  void _onMovieTap(int index) {
+    final int id = _movies[index].id;
+    Navigator.of(context).pushNamed(
+      '/main_screen/movie_details',
+      arguments: id,
+    );
   }
 
   @override
@@ -215,10 +243,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () {
-                        // ignore: avoid_print
-                        print('11');
-                      },
+                      onTap: () => _onMovieTap(index),
                     ),
                   ),
                 ],
